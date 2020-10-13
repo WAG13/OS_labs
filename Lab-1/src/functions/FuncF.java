@@ -8,9 +8,8 @@ public class FuncF {
     private static double function(double x) {
         double result;
         try {
-           // Thread.sleep(3000);
+            // Thread.sleep(3000);
             result = DoubleOps.funcF((int)x);
-            System.out.println("F"+result);
 
         } catch (InterruptedException e) {
             return Double.NaN;

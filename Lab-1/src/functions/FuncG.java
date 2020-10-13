@@ -10,7 +10,6 @@ public class FuncG {
         try {
             //Thread.sleep(5000);
             result = DoubleOps.funcG((int)x);
-            System.out.println("G"+result);
 
         } catch (InterruptedException e) {
             return Double.NaN;
