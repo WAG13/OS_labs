@@ -1,16 +1,21 @@
 package functions;
 
 import java.io.IOException;
+import spos.lab1.demo.DoubleOps;
 
 public class FuncG {
 
     private static double function(double x) {
+        double result;
         try {
-            Thread.sleep(5000);
+            //Thread.sleep(5000);
+            result = DoubleOps.funcG((int)x);
+            System.out.println("G"+result);
+
         } catch (InterruptedException e) {
             return Double.NaN;
         }
-        return x + 1;
+        return result;
     }
 
     public static void main(String[] args) {
