@@ -8,12 +8,13 @@ public class FuncG {
     private static double function(double x) {
         double result;
         try {
-            //Thread.sleep(5000);
-            result = DoubleOps.funcG((int)x);
+            Thread.sleep(5000);
+            //result = DoubleOps.funcG((int)x);
 
         } catch (InterruptedException e) {
             return Double.NaN;
         }
+        result = x - 1;
         return result;
     }
 

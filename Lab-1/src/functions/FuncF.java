@@ -8,12 +8,13 @@ public class FuncF {
     private static double function(double x) {
         double result;
         try {
-            // Thread.sleep(3000);
-            result = DoubleOps.funcF((int)x);
+            Thread.sleep(3000);
+            //result = DoubleOps.funcF((int)x);
 
         } catch (InterruptedException e) {
             return Double.NaN;
         }
+        result = x + 1;
         return result;
     }
 
