@@ -9,14 +9,20 @@ import java.util.Optional;
 
 public class Main {
 
+    private static final int N = 2;
+
     public static void main(String[] args) throws IOException {
 
         double x = Prompt.getX();
 
-        Manager manager = Manager.createOnPort(1234, 2);
-
+        Manager manager = Manager.createOnPort(1234, N);
+        /**/
         FuncF.run();
         FuncG.run();
+        /*
+        for (int i=0; i<N; i++){
+            FuncF.run();
+        }/**/
 
         long[] startTime = new long[] {System.nanoTime()};
 

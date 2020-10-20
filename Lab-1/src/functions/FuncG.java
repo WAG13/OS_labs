@@ -4,17 +4,20 @@ import java.io.IOException;
 import spos.lab1.demo.DoubleOps;
 
 public class FuncG {
+    private static long LONG_SPLEEP = 30000;
+    private static long[] SLEEP_TIME = {5000, 3000, LONG_SPLEEP, 3000, LONG_SPLEEP, 3000};
+    private static double[] RESULT = {5, 5, 0, 0, 5, 5};
 
     private static double function(double x) {
-        double result;
+        int test = (int) x%6;
+        double result = RESULT[test];
         try {
-            Thread.sleep(5000);
-            //result = DoubleOps.funcG((int)x);
+            Thread.sleep(SLEEP_TIME[test]);
+            //result = DoubleOps.funcG(test);
 
         } catch (InterruptedException e) {
             return Double.NaN;
         }
-        result = x - 1;
         return result;
     }
 
