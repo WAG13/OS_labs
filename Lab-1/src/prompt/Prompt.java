@@ -42,6 +42,7 @@ public class Prompt {
         long start = System.nanoTime();
         long end;
         while (true) {
+            runMenuEsc(manager);
             try {
                 Thread.sleep(MENU_DELAY);
             } catch (InterruptedException e) {

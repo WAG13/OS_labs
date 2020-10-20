@@ -11,15 +11,14 @@ public class GlobalKeyListener implements NativeKeyListener {
         this.onEscapePressed = onEscapePressed;
     }
 
+    @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
         if (e.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
             onEscapePressed.run();
         }
     }
 
-    public void nativeKeyReleased(NativeKeyEvent e) {
-    }
+    public void nativeKeyReleased(NativeKeyEvent e) { }
 
-    public void nativeKeyTyped(NativeKeyEvent e) {
-    }
+    public void nativeKeyTyped(NativeKeyEvent e) { }
 }

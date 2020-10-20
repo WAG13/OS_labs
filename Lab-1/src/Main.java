@@ -1,5 +1,6 @@
 import functions.FuncF;
 import functions.FuncG;
+import org.jnativehook.keyboard.NativeKeyListener;
 import util.ConcurrentBiConsumer;
 import manager.Manager;
 import prompt.Prompt;
@@ -7,7 +8,7 @@ import prompt.Prompt;
 import java.io.IOException;
 import java.util.Optional;
 
-public class Main {
+public class Main{
 
     private static final int N = 2;
 
@@ -38,10 +39,6 @@ public class Main {
             }
         });
 
-        if (args.length > 0 && args[0].equals("esc")) {
-            Prompt.runMenuEsc(manager);
-        } else {
-            Prompt.runMenu(manager);
-        }
+        Prompt.runMenu(manager);
     }
 }
