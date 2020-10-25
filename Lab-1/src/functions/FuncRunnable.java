@@ -10,10 +10,12 @@ public class FuncRunnable implements Runnable {
     private final DoubleUnaryOperator function;
     private final double x;
     private final SocketClient socket;
+    private final char funcName;
 
-    public FuncRunnable(double x, DoubleUnaryOperator function, SocketClient socket) {
+    public FuncRunnable(double x, DoubleUnaryOperator function, char funcName, SocketClient socket) {
         this.x = x;
         this.function = function;
+        this.funcName = funcName;
         this.socket = socket;
     }
 
@@ -22,8 +24,16 @@ public class FuncRunnable implements Runnable {
         double result = function.applyAsDouble(x);
         try {
             socket.send(result);
+//            while (true){
+//                Thread.sleep(500);
+//                System.out.println(funcName + " run");
+//                socket.send(result);
+//            }
         } catch (IOException e) {
             System.err.println("Client: can't send f(x) value");
         }
+//         catch (InterruptedException e) {
+//            System.out.println("Interrupt");
+//        }
     }
 }

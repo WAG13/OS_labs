@@ -4,8 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class FuncProcess {
+    private static Process process;
 
-    private FuncProcess() {}
+    public FuncProcess() {}
 
     public static void execute(Class cls) throws IOException {
         String javaHome = System.getProperty("java.home");
@@ -19,7 +20,11 @@ public class FuncProcess {
                 javaBin, "-cp", classpath, className);
         builder.inheritIO();
 
-        builder.start();
+        process = builder.start();
+    }
+
+    public static void destroy(){
+        process.destroy();
     }
 
 }

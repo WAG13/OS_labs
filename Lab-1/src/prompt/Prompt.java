@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 public class Prompt {
 
     private static final int MENU_DELAY = 1000;
-
+    public static boolean prompt = true;
     private static Scanner input = new Scanner(System.in);
 
     public static double getX() {
@@ -38,7 +38,7 @@ public class Prompt {
     }
 
     public static void runMenu(Manager manager) {
-        boolean prompt = true;
+
         long start = System.nanoTime();
         long end;
         while (true) {
@@ -56,7 +56,8 @@ public class Prompt {
                     System.out.println("Time between prompts: " + (end - start) / 1000000 + "ms");
                     System.out.println("1. Continue\n" +
                             "2. Continue without prompt\n" +
-                            "3. Cancel");
+                            "3. Cancel\n" //+ "4. Exit"
+                    );
                     answer = input.nextShort();
                     input.nextLine();
                 }
@@ -68,6 +69,9 @@ public class Prompt {
                 } else if (answer == 3) {
                     manager.closeAll();
                 }
+//                else if (answer == 4) {
+//                    System.exit(0);
+//                }
             }
         }
     }
