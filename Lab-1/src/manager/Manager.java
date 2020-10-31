@@ -81,10 +81,6 @@ public class Manager {
         }
     }
 
-    public boolean getState(){
-        return (thread.getState()!=Thread.State.TERMINATED);
-    }
-
     public void closeAll() {
         for (Socket socket : sockets) {
             try {

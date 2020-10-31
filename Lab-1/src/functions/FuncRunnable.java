@@ -24,16 +24,8 @@ public class FuncRunnable implements Runnable {
         double result = function.applyAsDouble(x);
         try {
             socket.send(result);
-//            while (true){
-//                Thread.sleep(500);
-//                System.out.println(funcName + " run");
-//                socket.send(result);
-//            }
         } catch (IOException e) {
             System.err.println("Client: can't send f(x) value");
         }
-//         catch (InterruptedException e) {
-//            System.out.println("Interrupt");
-//        }
     }
 }
