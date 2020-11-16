@@ -30,6 +30,7 @@ public class Manager {
     }
 
     public void run(double x, BiConsumer<Optional<Double>, Status> onCalculated) throws IOException {
+        System.out.println("press ESC for cancellation");
 
         double[] results = new double[N];
         AtomicInteger counter = new AtomicInteger(0);
@@ -46,7 +47,6 @@ public class Manager {
                 double inputDouble;
                 try {
                     inputDouble = in.readDouble();
-                    System.out.println("Manager: got " + inputDouble);
 
                     if (Double.compare(inputDouble, ZERO_VALUE) == 0) {
                         // got zero value, so we already know the result
@@ -72,6 +72,7 @@ public class Manager {
 
                 } catch (IOException e) {
                     onCalculated.accept(Optional.empty(), Status.CANCELLED);
+                    closeAll();
                 }
             };
             thread = new Thread(runnable);
@@ -88,6 +89,7 @@ public class Manager {
                 e.printStackTrace();
             }
         }
+        thread.interrupt();
     }
 
     private static void calculateResult(double[] results, BiConsumer<Optional<Double>, Status> onCalculated) {

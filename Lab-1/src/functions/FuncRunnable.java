@@ -10,10 +10,12 @@ public class FuncRunnable implements Runnable {
     private final DoubleUnaryOperator function;
     private final double x;
     private final SocketClient socket;
+    private final char funcName;
 
-    public FuncRunnable(double x, DoubleUnaryOperator function, SocketClient socket) {
+    public FuncRunnable(double x, DoubleUnaryOperator function, char funcName, SocketClient socket) {
         this.x = x;
         this.function = function;
+        this.funcName = funcName;
         this.socket = socket;
     }
 

@@ -7,7 +7,7 @@ import java.util.function.DoubleUnaryOperator;
 
 public class FuncHandler {
 
-    public static void run(DoubleUnaryOperator function) {
+    public static void run(DoubleUnaryOperator function, char funcName) {
         SocketClient socketClient;
         try {
             socketClient = SocketClient.create();
@@ -23,7 +23,8 @@ public class FuncHandler {
             System.err.println("Client: can't get x value");
             return;
         }
-        FuncRunnable functionRunnable = new FuncRunnable(x, function, socketClient);
+
+        FuncRunnable functionRunnable = new FuncRunnable(x, function, funcName, socketClient);
         Thread thread = new Thread(functionRunnable);
         thread.setDaemon(true);
         thread.start();
