@@ -4,27 +4,27 @@
 
 package scheduling;
 
-import scheduling.processes.sProcess;
+import scheduling.processes.Process;
 
 import java.util.Vector;
 import java.io.*;
 
 public class SchedulingAlgorithm {
 
-    public static Results firstComeFirstServedAlgorithm(int runtime, Vector processVector, Results result) {
+    public static Results firstComeFirstServedAlgorithm(String resultsFile, int runtime, Vector processVector, Results result) {
         int i = 0;
         int comptime = 0;
         int currentProcess = 0;
         int previousProcess = 0;
         int size = processVector.size();
         int completed = 0;
-        String resultsFile = "Summary-Processes";
+
 
         result.schedulingType = "Batch (Nonpreemptive)";
         result.schedulingName = "First-Come First-Served";
         try {
             PrintStream out = new PrintStream(new FileOutputStream(resultsFile));
-            sProcess process = (sProcess) processVector.elementAt(currentProcess);
+            Process process = (Process) processVector.elementAt(currentProcess);
             out.println("Process: " + currentProcess + " registered... (" + process.cputime + " " + process.ioblocking +
                     " " + process.cpudone + " " + process.cpudone + ")");
             while (comptime < runtime) {
@@ -38,12 +38,12 @@ public class SchedulingAlgorithm {
                         return result;
                     }
                     for (i = size - 1; i >= 0; i--) {
-                        process = (sProcess) processVector.elementAt(i);
+                        process = (Process) processVector.elementAt(i);
                         if (process.cpudone < process.cputime) {
                             currentProcess = i;
                         }
                     }
-                    process = (sProcess) processVector.elementAt(currentProcess);
+                    process = (Process) processVector.elementAt(currentProcess);
                     out.println("scheduling.processes.Process: " + currentProcess + " registered... (" + process.cputime +
                             " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
                 }
@@ -54,12 +54,12 @@ public class SchedulingAlgorithm {
                     process.ionext = 0;
                     previousProcess = currentProcess;
                     for (i = size - 1; i >= 0; i--) {
-                        process = (sProcess) processVector.elementAt(i);
+                        process = (Process) processVector.elementAt(i);
                         if (process.cpudone < process.cputime && previousProcess != i) {
                             currentProcess = i;
                         }
                     }
-                    process = (sProcess) processVector.elementAt(currentProcess);
+                    process = (Process) processVector.elementAt(currentProcess);
                     out.println("scheduling.processes.Process: " + currentProcess + " registered... (" + process.cputime +
                             " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
                 }
@@ -75,18 +75,17 @@ public class SchedulingAlgorithm {
         return result;
     }
 
-    public static Results multipleQueuesAlgorithm(int runtime, Vector processVector,int quantum, Results result) {
+    public static Results multipleQueuesAlgorithm(String resultsFile, int runtime, Vector processVector,int quantum, Results result) {
         int comptime = 0;
         int size = processVector.size();
         int completed = 0;
         MultipleQueuesScheduler scheduler = new MultipleQueuesScheduler(processVector,quantum);
 
-        String resultsFile = "Summary-Processes";
         result.schedulingType = "Batch (preemptive)";
         result.schedulingName = "Multiple queues";
         try {
             PrintStream out = new PrintStream(new FileOutputStream(resultsFile));
-            sProcess process = scheduler.getNextProcess();
+            Process process = scheduler.getNextProcess();
             out.println(getProcessInfo(process,"registered"));
             while (comptime < runtime) {
                 if (process.cpudone == process.cputime) {
@@ -133,7 +132,7 @@ public class SchedulingAlgorithm {
         return result;
     }
 
-    public static String getProcessInfo(sProcess process,String state){
+    public static String getProcessInfo(Process process, String state){
         return String.format("Process: %d (priority %d) used %d / %d quantum of time %s... (%d %d %d)",
                 process.processIndex, process.priority, process.usedQuantumOfTime, process.queue.getQuantum(),
                 state, process.cputime, process.ioblocking, process.cpudone);

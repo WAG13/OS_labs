@@ -2,17 +2,6 @@ package utils;
 
 public class Common {
 
-  static public int s2i (String s) {
-    int i = 0;
-
-    try {
-      i = Integer.parseInt(s.trim());
-    } catch (NumberFormatException nfe) {
-      System.out.println("NumberFormatException: " + nfe.getMessage());
-    }
-    return i;
-  }
-
   static public double R1 () {
     java.util.Random generator = new java.util.Random(System.currentTimeMillis());
     double U = generator.nextDouble();
