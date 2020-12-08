@@ -43,10 +43,10 @@ public class ControlPanel extends Frame {
         }
     }
 
-    private void createButton(Button runButton, int x, int y, int w, int h) {
+    private void createButton(Button runButton, int x, int y, int width, int height) {
         runButton.setForeground(Color.blue);
         runButton.setBackground(Color.lightGray);
-        runButton.setBounds(x, y, w, h);
+        runButton.setBounds(x, y, width, height);
         add(runButton);
     }
 
@@ -59,25 +59,10 @@ public class ControlPanel extends Frame {
         setSize(660, 600);
         setFont(new Font("Courier", Font.PLAIN, 12));
 
-        runButton.setForeground(Color.blue);
-        runButton.setBackground(Color.lightGray);
-        runButton.setBounds(X_COL_1, PADDING_TOP, 70, 15);
-        add(runButton);
-
-        stepButton.setForeground(Color.blue);
-        stepButton.setBackground(Color.lightGray);
-        stepButton.setBounds(X_COL_2, PADDING_TOP, 70, 15);
-        add(stepButton);
-
-        resetButton.setForeground(Color.blue);
-        resetButton.setBackground(Color.lightGray);
-        resetButton.setBounds(X_COL_3, PADDING_TOP, 70, 15);
-        add(resetButton);
-
-        exitButton.setForeground(Color.blue);
-        exitButton.setBackground(Color.lightGray);
-        exitButton.setBounds(X_COL_4, PADDING_TOP, 70, 15);
-        add(exitButton);
+        createButton(runButton, X_COL_1, PADDING_TOP, 70, 15);
+        createButton(stepButton, X_COL_2, PADDING_TOP, 70, 15);
+        createButton(resetButton, X_COL_3, PADDING_TOP, 70, 15);
+        createButton(exitButton, X_COL_4, PADDING_TOP, 70, 15);
 
         for (int i = 0; i < pagesButtons.size(); i++) {
             Button button = (Button) pagesButtons.get(i);
@@ -231,6 +216,7 @@ public class ControlPanel extends Frame {
         lastTouchTimeValueLabel.setText(Integer.toString(page.lastTouchTime));
         lowValueLabel.setText(Long.toString(page.low, Kernel.addressradix));
         highValueLabel.setText(Long.toString(page.high, Kernel.addressradix));
+        pageCounterValueLabel.setText(Long.toString(page.page_counter));
     }
 
     public void setStatus(String status) {

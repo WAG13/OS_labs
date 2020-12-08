@@ -18,10 +18,8 @@ public class Kernel extends Thread {
   private ControlPanel controlPanel;
 
   private final Vector<Page> memVector = new Vector<>();    // vector of all virtual pages
-  private Queue<Page> mappedPagesQueue = new LinkedList<>();     // queue of mapped virtual pages (doubly linked list)
   private final Vector<Instruction> instructVector = new Vector<>();   // vector of instructions from commands file
 
-  LinkedList<Page> firstRun = new LinkedList<>();
   private boolean doStdoutLog = false;
   private boolean doFileLog = false;
 
@@ -117,11 +115,8 @@ public class Kernel extends Thread {
               page.M = M;
               page.inMemTime = inMemTime;
               page.lastTouchTime = lastTouchTime;
-              firstRun.addFirst(page);
             }
           }
-
-          mappedPagesQueue = new LinkedList<>(firstRun);
 
           if (line.startsWith("enable_logging")) {
             StringTokenizer st = new StringTokenizer(line);
@@ -240,13 +235,14 @@ public class Kernel extends Thread {
     int i;
     int j;
     int physical_count = 0;
-    int map_count;
+    int map_count = 0;
     long high;
+
+    Page.page_table_counter = 0;
 
     readConfigFile(config);
     long address_limit = (block * virtPageNum + 1) - 1;
 
-    map_count = mappedPagesQueue.size();
     //System.out.println(Arrays.toString(mappedPagesQueue.toArray()));
 
     readInstructFile(commands, address_limit);
@@ -358,7 +354,6 @@ public class Kernel extends Thread {
   }
 
   public void step() {
-    int i;
 
     Instruction instruct = instructVector.elementAt(runs); // get current instruction
 
@@ -368,7 +363,7 @@ public class Kernel extends Thread {
     int pageID = Virtual2Physical.pageNum(instruct.addr, virtPageNum, block); // get physical page id from instruction
 
     getPage(pageID);
-
+    System.out.println(pageID);
     if (controlPanel.pageFaultValueLabel.getText().equals("YES")) {
       controlPanel.pageFaultValueLabel.setText("NO");
     }
@@ -386,11 +381,12 @@ public class Kernel extends Thread {
 
         PageFault.replacePage(memVector, virtPageNum, pageID, controlPanel);
         controlPanel.pageFaultValueLabel.setText("YES");
+
       } else {
-        Page.page_table_counter++;
         page.R = 1;
+        Page.page_table_counter++;
         page.page_counter = Page.page_table_counter;
-        controlPanel.pageCounterValueLabel.setText(Integer.toString(page.page_counter));
+        controlPanel.pageCounterValueLabel.setText(Long.toString(page.page_counter));
         page.lastTouchTime = 0;
 
         if (doFileLog) {
@@ -413,13 +409,13 @@ public class Kernel extends Thread {
         }
 
         PageFault.replacePage(memVector, virtPageNum, pageID, controlPanel);
-
         controlPanel.pageFaultValueLabel.setText("YES");
+
       } else {
-        Page.page_table_counter++;
         page.M = 1;
+        Page.page_table_counter++;
         page.page_counter = Page.page_table_counter;
-        controlPanel.pageCounterValueLabel.setText(Integer.toString(page.page_counter));
+        controlPanel.pageCounterValueLabel.setText(Long.toString(page.page_counter));
         page.lastTouchTime = 0;
 
         if (doFileLog) {
@@ -431,7 +427,7 @@ public class Kernel extends Thread {
       }
     }
 
-    for (i = 0; i < virtPageNum; i++) {
+    for (int i = 0; i < virtPageNum; i++) {
       Page page = memVector.get(i);
       if (page.R == 1 && page.lastTouchTime == 10) {
         page.R = 0;
@@ -444,6 +440,7 @@ public class Kernel extends Thread {
     runs++;
     controlPanel.timeValueLabel.setText(runs * 10 + " (ns)");
 
+    getPage(pageID);
   }
 
   public void reset() {

@@ -11,8 +11,8 @@ public class Page {
   public long high;
   public long low;
 
-  public int page_counter;
-  public static int page_table_counter = 0;
+  public long page_counter;
+  public static long page_table_counter = 0;
 
   public Page( int id, int physical, byte R, byte M, int inMemTime, int lastTouchTime, long high, long low )
   {
