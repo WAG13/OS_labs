@@ -1,5 +1,7 @@
 package memoryManager;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 public class Page {
 
   public int id;
@@ -12,7 +14,7 @@ public class Page {
   public long low;
 
   public long page_counter;
-  public static long page_table_counter = 0;
+  public static AtomicLong page_table_counter = new AtomicLong(0);
 
   public Page( int id, int physical, byte R, byte M, int inMemTime, int lastTouchTime, long high, long low )
   {

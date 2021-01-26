@@ -6,4 +6,3 @@ READ 16384 ... okay
 WRITE 24577 ... okay
 WRITE 530000 ... page fault
 WRITE 33000 ... page fault
-WRITE 556404 ... page fault

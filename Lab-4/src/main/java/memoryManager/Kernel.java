@@ -238,7 +238,7 @@ public class Kernel extends Thread {
     int map_count = 0;
     long high;
 
-    Page.page_table_counter = 0;
+    Page.page_table_counter.set(0);
 
     readConfigFile(config);
     long address_limit = (block * virtPageNum + 1) - 1;
@@ -384,8 +384,7 @@ public class Kernel extends Thread {
 
       } else {
         page.R = 1;
-        Page.page_table_counter++;
-        page.page_counter = Page.page_table_counter;
+        page.page_counter = Page.page_table_counter.incrementAndGet();
         controlPanel.pageCounterValueLabel.setText(Long.toString(page.page_counter));
         page.lastTouchTime = 0;
 
@@ -413,8 +412,7 @@ public class Kernel extends Thread {
 
       } else {
         page.M = 1;
-        Page.page_table_counter++;
-        page.page_counter = Page.page_table_counter;
+        page.page_counter = Page.page_table_counter.incrementAndGet();
         controlPanel.pageCounterValueLabel.setText(Long.toString(page.page_counter));
         page.lastTouchTime = 0;
 

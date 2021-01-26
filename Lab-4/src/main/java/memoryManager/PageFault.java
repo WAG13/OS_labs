@@ -5,7 +5,7 @@ public class PageFault {
 
   /** LRU algorithm with counter */
   public static void replacePage(Vector mem , int virtPageNum , int replacePageNum , ControlPanel controlPanel){
-    long min_counter = Page.page_table_counter;
+    long min_counter = Page.page_table_counter.get();
     int outdated_page_index = 0;
     for(int i = 0; i < virtPageNum; i++){
       Page current_page = ( Page ) mem.elementAt(i);
@@ -21,8 +21,7 @@ public class PageFault {
     Page new_page = ( Page ) mem.elementAt( replacePageNum );
     controlPanel.removePhysicalPage( outdated_page_index );
     new_page.physical = outdated_page.physical;
-    Page.page_table_counter++;
-    new_page.page_counter = Page.page_table_counter;
+    new_page.page_counter = Page.page_table_counter.incrementAndGet();
     controlPanel.addPhysicalPage( new_page.physical , replacePageNum );
     outdated_page.inMemTime = 0;
     outdated_page.lastTouchTime = 0;
