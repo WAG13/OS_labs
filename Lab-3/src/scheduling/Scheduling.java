@@ -24,8 +24,8 @@ public class Scheduling {
     private static int quantum = 100;
     private static Vector processVector = new Vector();
     private static Results result = new Results("null","null",0);
-    private static String summary_file = "Summary-Results";
-    private static String inputFile = "scheduling.conf";
+    private static final String summary_file = "Summary-Results";
+    private static final String inputFile = "scheduling.conf";
 
     private static void init(File inputFile) {
 

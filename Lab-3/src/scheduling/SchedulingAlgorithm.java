@@ -44,11 +44,11 @@ public class SchedulingAlgorithm {
                         }
                     }
                     process = (Process) processVector.elementAt(currentProcess);
-                    out.println("scheduling.processes.Process: " + currentProcess + " registered... (" + process.cputime +
+                    out.println("Process: " + currentProcess + " registered... (" + process.cputime +
                             " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
                 }
                 if (process.ioblocking == process.ionext) {
-                    out.println("scheduling.processes.Process: " + currentProcess + " I/O blocked... (" + process.cputime +
+                    out.println("Process: " + currentProcess + " I/O blocked... (" + process.cputime +
                             " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
                     process.numblocked++;
                     process.ionext = 0;
@@ -60,7 +60,7 @@ public class SchedulingAlgorithm {
                         }
                     }
                     process = (Process) processVector.elementAt(currentProcess);
-                    out.println("scheduling.processes.Process: " + currentProcess + " registered... (" + process.cputime +
+                    out.println("Process: " + currentProcess + " registered... (" + process.cputime +
                             " " + process.ioblocking + " " + process.cpudone + " " + process.cpudone + ")");
                 }
                 process.cpudone++;
@@ -81,7 +81,7 @@ public class SchedulingAlgorithm {
         int completed = 0;
         MultipleQueuesScheduler scheduler = new MultipleQueuesScheduler(processVector,quantum);
 
-        result.schedulingType = "Batch (preemptive)";
+        result.schedulingType = "Preemptive";
         result.schedulingName = "Multiple queues";
         try {
             PrintStream out = new PrintStream(new FileOutputStream(resultsFile));
@@ -112,7 +112,7 @@ public class SchedulingAlgorithm {
                     out.println(getProcessInfo(process,"registered"));
                 }
                 if(process.usedQuantumOfTime == process.queue.getQuantum()){
-                    //process.numblocked++;//???
+                    process.numblocked++;
                     out.println(getProcessInfo(process,"used all quantum of time"));
                     scheduler.decreaseByOneCurrentProcessPriority();
 
