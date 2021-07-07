@@ -1,0 +1,16 @@
+Scheduling Type: Preemptive
+Scheduling Name: Multiple queues
+Simulation Run Time: 10000
+Mean: 1100
+Standard Deviation: 500
+Process #	CPU Time	IO Blocking	CPU Completed	CPU Blocked
+0			1343 (ms)	50 (ms)		900 (ms)		18 times
+1			1542 (ms)	100 (ms)	1100 (ms)		11 times
+2			1542 (ms)	100 (ms)	1100 (ms)		11 times
+3			1542 (ms)	500 (ms)	1400 (ms)		5 times
+4			1542 (ms)	500 (ms)	1400 (ms)		5 times
+5			1542 (ms)	500 (ms)	1400 (ms)		5 times
+6			1542 (ms)	260 (ms)	1200 (ms)		6 times
+7			1542 (ms)	260 (ms)	1200 (ms)		6 times
+8			1542 (ms)	30 (ms)		150 (ms)		5 times
+9			1542 (ms)	30 (ms)		150 (ms)		4 times
